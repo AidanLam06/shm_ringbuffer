@@ -1,7 +1,0 @@
-# ninja log v7
-2	655	1789947391600523306	CMakeFiles/producer.dir/example/producer.cpp.o	40aabbe4e33a7203
-2	256	1789947391601683608	CMakeFiles/consumer.dir/example/consumer.cpp.o	9592619bfa8aa85b
-1	304	1790723352013801726	CMakeFiles/process2.dir/test/process2.cpp.o	23aac3363ba8f0b7
-1	677	1790723352012805961	CMakeFiles/process1.dir/test/process1.cpp.o	278996ed8fb35c97
-2	522	1791505315369022875	CMakeFiles/test_ipc.dir/test/test_ipc.cpp.o	352e4b0d989aaf91
-523	575	1791505315890392272	test_ipc	e6a0b6a25d88d164

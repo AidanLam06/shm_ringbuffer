@@ -1,3 +1,0 @@
-/home/alam/projects/cpp/smipc_lib/build/CMakeFiles/test_ipc.dir
-/home/alam/projects/cpp/smipc_lib/build/CMakeFiles/edit_cache.dir
-/home/alam/projects/cpp/smipc_lib/build/CMakeFiles/rebuild_cache.dir

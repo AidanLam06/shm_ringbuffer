@@ -1,8 +1,0 @@
-[
-{
-  "directory": "/home/alam/projects/cpp/smipc_lib/build",
-  "command": "/usr/bin/clang++ -I/home/alam/projects/cpp/smipc_lib/include -g -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/test_ipc.dir/test/test_ipc.cpp.o -c /home/alam/projects/cpp/smipc_lib/test/test_ipc.cpp",
-  "file": "/home/alam/projects/cpp/smipc_lib/test/test_ipc.cpp",
-  "output": "/home/alam/projects/cpp/smipc_lib/build/CMakeFiles/test_ipc.dir/test/test_ipc.cpp.o"
-}
-]
