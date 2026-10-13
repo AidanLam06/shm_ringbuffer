@@ -7,12 +7,10 @@
 
 namespace ringbuffer {
 
-    //TODO : add functionality so that if user enters a non-power of 2 number the code can handle that
 template <typename T, std::size_t N>
 class RingBuffer {
     static_assert(N > 0, "RingBuffer capacity must be greater than zero");
-    static_assert((N & (N - 1)) == 0, "RingBuffer capacity must be a power of two");
-    // power of 2 to allow for bitwise AND
+
     public:
         static constexpr std::size_t capacity() noexcept {
             return N;
@@ -25,7 +23,7 @@ class RingBuffer {
             if (current_head - current_tail == N) {
                 return false;
             }
-            data_[current_head & (N - 1)] = value;
+            data_[index(current_head)] = value;
             head_.store(current_head + 1, std::memory_order_release);
             return true;
         }
@@ -37,7 +35,7 @@ class RingBuffer {
             if (current_head - current_tail == N) {
                 return false;
             }
-            data_[current_head & (N - 1)] = std::move(value);
+            data_[index(current_head)] = std::move(value);
             head_.store(current_head + 1, std::memory_order_release);
             return true;
         }
@@ -48,7 +46,7 @@ class RingBuffer {
             if (current_tail == current_head) {
                 return false;
             }
-            value = std::move(data_[current_tail & (N - 1)]);
+            value = std::move(data_[index(current_tail)]);
             tail_.store(current_tail + 1, std::memory_order_release);
             return true;
         }
@@ -62,6 +60,16 @@ class RingBuffer {
         }
 
     private:
+        static constexpr bool is_power_of_two = (N & (N - 1)) == 0;
+
+        static constexpr std::size_t index(std::size_t position) noexcept {
+            if constexpr (is_power_of_two) {
+                return position & (N - 1);
+            } else {
+                return position % N;
+            }
+        }
+
         static constexpr std::size_t cache_line_size = 64;
         std::array<T, N> data_{};
         

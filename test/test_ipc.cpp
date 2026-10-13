@@ -48,6 +48,32 @@ int ipc_ringbuffer_lifecycle() {
     return EXIT_SUCCESS;
 }
 
+int ringbuffer_non_power_of_two_capacity() {
+    ringbuffer::RingBuffer<int, 7> buffer;
+
+    for (int value = 0; value < 7; ++value) {
+        assert(buffer.try_push(value));
+    }
+    assert(!buffer.try_push(7));
+
+    for (int expected = 0; expected < 7; ++expected) {
+        int value = 0;
+        assert(buffer.try_pop(value));
+        assert(value == expected);
+    }
+
+    for (int value = 7; value < 14; ++value) {
+        assert(buffer.try_push(value));
+    }
+    for (int expected = 7; expected < 14; ++expected) {
+        int value = 0;
+        assert(buffer.try_pop(value));
+        assert(value == expected);
+    }
+    assert(buffer.isEmpty());
+    return EXIT_SUCCESS;
+}
+
 int ipc_rejects_invalid_open_and_duplicate_creation() {
     const std::string name = "ipc_failures_" + std::to_string(getpid());
     const std::string missing = name + "_missing";
@@ -378,6 +404,7 @@ int ipc_multiple_independent_queues() {
 
 int main() {
     ipc_ringbuffer_lifecycle();
+    ringbuffer_non_power_of_two_capacity();
     ipc_rejects_invalid_open_and_duplicate_creation();
     ipc_open_racing_initialization();
     ipc_parent_produces_child_consumes();
